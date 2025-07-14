@@ -1,0 +1,74 @@
+import java.util.*;
+
+public class Main {
+    static char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    static char[] shift = {'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+            'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C'};
+    static Scanner input = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        System.out.print("1. Encryption\n" + "2. Decryption\n" + "Choose option: ");
+        int choice = input.nextInt();
+        input.nextLine();
+
+        if(choice == 1) {
+            encrypt();
+        }
+        else if(choice == 2) {
+            decrypt();
+        }
+        else {
+            System.out.println("Incorrect input.");
+        }
+
+    }
+
+    static void encrypt() {
+        System.out.print("Enter text to encrypt: ");
+        String text = input.nextLine();
+        char[] letter = text.toUpperCase().toCharArray();
+
+        for(int i = 0; i < letter.length; i++) {
+            for(int j = 0; j < alphabet.length; j++) {
+                if(letter[i] == alphabet[j]) {
+                    letter[i] = shift[j];
+                    break;
+                }
+            }
+        }
+
+        for(int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if(Character.isLowerCase(ch)) {
+                letter[i] = Character.toLowerCase(letter[i]);
+            }
+        }
+
+        for(char c : letter) { System.out.print(c); }
+    }
+
+    static void decrypt() {
+        System.out.print("Enter text to decrypt: ");
+        String text = input.nextLine();
+        char[] letter = text.toUpperCase().toCharArray();
+
+        for(int i = 0; i < letter.length; i++) {
+            for(int j = 0; j < shift.length; j++) {
+                if(letter[i] == shift[j]) {
+                    letter[i] = alphabet[j];
+                    break;
+                }
+            }
+        }
+
+        for(int i = 0; i < text.length(); i++) {
+            char ch = text.charAt(i);
+            if(Character.isLowerCase(ch)) {
+                letter[i] = Character.toLowerCase(letter[i]);
+            }
+        }
+
+        for(char c : letter) { System.out.print(c); }
+    }
+}
