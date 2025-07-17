@@ -1,10 +1,7 @@
 import java.util.*;
 
 public class Main {
-    static char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-            'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    static char[] shift = {'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-            'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C'};
+    static char[] alphabet = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -21,10 +18,17 @@ public class Main {
         else {
             System.out.println("Incorrect input.");
         }
-
     }
 
     static void encrypt() {
+        System.out.print("Enter number between 1 and 25 for shift value: ");
+        int num = input.nextInt();
+        if (num < 1 || num > 25) {
+            System.out.println("Incorrect input.");
+            return;
+        }
+        input.nextLine();
+
         System.out.print("Enter text to encrypt: ");
         String text = input.nextLine();
         char[] letter = text.toUpperCase().toCharArray();
@@ -32,7 +36,7 @@ public class Main {
         for(int i = 0; i < letter.length; i++) {
             for(int j = 0; j < alphabet.length; j++) {
                 if(letter[i] == alphabet[j]) {
-                    letter[i] = shift[j];
+                    letter[i] = (char)('A' + (j + num) % 26);
                     break;
                 }
             }
@@ -49,14 +53,22 @@ public class Main {
     }
 
     static void decrypt() {
+        System.out.print("Enter number between 1 and 25 for shift value: ");
+        int num = input.nextInt();
+        if (num < 1 || num > 25) {
+            System.out.println("Incorrect input.");
+            return;
+        }
+        input.nextLine();
+
         System.out.print("Enter text to decrypt: ");
         String text = input.nextLine();
         char[] letter = text.toUpperCase().toCharArray();
 
         for(int i = 0; i < letter.length; i++) {
-            for(int j = 0; j < shift.length; j++) {
-                if(letter[i] == shift[j]) {
-                    letter[i] = alphabet[j];
+            for(int j = 0; j < alphabet.length; j++) {
+                if(letter[i] == alphabet[j]) {
+                    letter[i] = (char)('A' + (j - num + 26) % 26);
                     break;
                 }
             }
